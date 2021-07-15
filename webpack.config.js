@@ -23,6 +23,7 @@ module.exports = {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
+      
       {
         test: /\.html$/,
         use: [
@@ -31,9 +32,14 @@ module.exports = {
             options: {
               minimize: true,
             },
+            
           },
         ],
       },
+      {
+        test: /\.(png|svg|ttf|woff|jpg|gif)$/,
+        use: ["file-loader"]
+      }
     ],
   },
 };
