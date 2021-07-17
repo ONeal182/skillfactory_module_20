@@ -22,15 +22,75 @@ const addTaskHtml = (task, btnData) => {
     let inputAddTask = document.querySelectorAll('.add-new-task');
     inputAddTask.forEach(Element =>
       Element.addEventListener('blur', () => {
+        
         taskText = Element.value;
-        let newTask = {id:task.length  + 1, text: taskText, state: btnData };
+        let newTask = {id:task.length, name: taskText, state: btnData, text: '' };
         task.push(newTask)
         addNewHtmlTask(newTask);
         Element.parentElement.remove();
+        addDescription(task);
       })
     )
 
   }
+}
+
+const addDescription = (task) =>{
+  if (auth) {
+    let inputAddTask = document.querySelectorAll(`.task-items .task-item`);
+    let changeDiscription = document.querySelector(`.changeDiscription`);
+    let changeDiscriptionTextarea = document.querySelector(`.changeDiscription .changeTextare`);
+    let changeDiscriptionText = document.querySelector(`.changeDiscription .changeDiscriptionText`);
+    let nameTask = document.querySelector(`.changeDiscription .nameTask`);
+    let taskTextSubmit = document.querySelector(`.task-text-submit`);
+    let close = document.querySelector(`.close`);
+    let changeDiscriptionTextBtn = document.querySelector(`.changeDiscription .changeDiscriptionTextBtn`);
+    inputAddTask.forEach(Element =>
+      Element.addEventListener('dblclick', () => {
+        task.forEach((Element1,key) => {
+
+          if(Element1.id == Element.dataset.id){
+
+            console.log(Element1.id);
+            console.log(Element.dataset.id);
+            changeDiscription.style.display = 'flex';
+            nameTask.textContent = Element1.name;
+            changeDiscriptionTextBtn.addEventListener('click', ()=>{
+              changeDiscriptionTextarea.style.display = 'block';
+              taskTextSubmit.style.display = 'block';
+              
+
+            })
+
+            if(Element1.text != ''){
+              taskTextSubmit.style.display = 'none';
+              changeDiscriptionText.textContent = Element1.text;
+              changeDiscriptionText.style.display = 'block';
+              changeDiscriptionTextarea.style.display = 'none';
+            }
+            close.addEventListener('click', () =>{
+              changeDiscription.style.display = 'none';
+              changeDiscriptionText.textContent = '';
+              nameTask.textContent = '';
+              changeDiscriptionTextarea.textContent = '';
+
+            })
+            taskTextSubmit.addEventListener('click', ()=>{
+              console.log(task[key]);
+              task[key].text = changeDiscriptionTextarea.value;
+              changeDiscriptionTextarea.textContent = '';
+            })
+
+          }
+          
+        })
+      })
+      
+      
+    )
+    console.log(task)
+  }
+  
 }
 
 const transferTask = (task, datTask) => {
@@ -91,7 +151,8 @@ const addNewHtmlTask = (task) => {
   let innerTask = document.querySelector(`.task-items[data-state = "${task.state}"] `);
   let newTask = document.createElement('li');
   newTask.className = "task-item";
-  newTask.innerHTML = task.text;
+  newTask.innerHTML = task.name;
+  newTask.dataset.id = task.id;
   innerTask.append(newTask);
 }
 const addAllHtmlTask = (task) => {
@@ -100,7 +161,8 @@ const addAllHtmlTask = (task) => {
   console.log(innerTask);
   let newTask = document.createElement('li');
   newTask.className = "task-item";
-  newTask.innerHTML = task.text;
+  newTask.dataset.id = task.id;
+  newTask.innerHTML = task.name;
   innerTask.append(newTask);
 
 }
@@ -113,7 +175,7 @@ const addHtmlSelected = (task, stateObj, prevElement) => {
     newTask.className = "task-item";
 
     if (Element.state == stateObj) {
-      stateTask += ` <option class="task-item_option" data-id="${Element.id}" value="${Element.text}">${Element.text}</option>`;
+      stateTask += ` <option class="task-item_option" data-id="${Element.id}" value="${Element.name}">${Element.name}</option>`;
     }
   });
   newTask.innerHTML = `<select class="task-item_select" name="" id="">${stateTask}</select>`;
@@ -132,10 +194,10 @@ loginForm.addEventListener("submit", function (e) {
 
   document.querySelector("#content").innerHTML = fieldHTMLContent;
   if (authUser(login, password)) {
+    
     auth = true;
     const task = new Task(login);
     let taskAll = task.getAllTask();
-
 
     addTasks(taskAll);
     const btnCard = document.querySelectorAll('.add-card');

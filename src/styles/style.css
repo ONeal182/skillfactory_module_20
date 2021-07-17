@@ -100,7 +100,75 @@ select {
 .btn-form {
   width: 200px;
 }
+.changeDiscription{
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 99999;
+  padding: 25px;
+  height: 100%;
 
+}
+.close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+  cursor: pointer;
+  }
+  .close:hover {
+  opacity: 1;
+  }
+  .close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+  }
+  .close:before {
+  transform: rotate(45deg);
+  }
+  .close:after {
+  transform: rotate(-45deg);
+  }
+.changeDiscription .nameTask{
+  margin-bottom: 35px;
+}
+.changeDiscription .task-text-submit{
+  margin-top: 20px;
+  margin-left: auto;
+  width: 100px;
+  height: 30px;
+  background: #0079BF;
+  border-radius: 5px;
+  color: white;
+  outline: none;
+  border: none;
+}
+.changeDiscriptionText{
+  display: none;
+}
+.changeDiscriptionTextBtn{
+  width: 100px;
+  background-color: white;
+  border: none;
+  outline: none;
+  margin-top: 20px;
+  margin-left: auto;
+}
+.changeDiscription .changeTextare{
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  outline: 0;
+  width: 100%;
+  height: 200px;
+}
 .task-content {
   padding: 12px;
   width: calc(20% - 12px);
@@ -108,12 +176,16 @@ select {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  height: 400px;
+  overflow-y: scroll;
 }
 
 .conteiner-task {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  height: 500px;
+  position: relative;
 
 }
 
