@@ -4,8 +4,8 @@ export class Task {
     this.task = JSON.parse(sessionStorage.getItem('user')).find(login => this.name).task;
   }
 
-    getTask(){
-    let allTask = this.task
+    getAllTask(task){
+    let allTask = this.task;
     return allTask;
     }
     addTask(task){

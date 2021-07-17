@@ -43,6 +43,10 @@ ol[class] {
   list-style: none;
 }
 
+li {
+  list-style: none;
+}
+
 /* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
 a:not([class]) {
   text-decoration-skip-ink: auto;
@@ -80,9 +84,11 @@ select {
 .navElement {
   background-color: #0067A3;
 }
-.backGround{
+
+.backGround {
   background-color: #0079BF;
 }
+
 .labelName {
   font-family: Roboto;
   font-style: normal;
@@ -100,6 +106,8 @@ select {
   width: calc(20% - 12px);
   background: #EBECF0;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .conteiner-task {
@@ -143,6 +151,7 @@ select {
   position: relative;
   color: #5E6C84;
   padding-left: 20px;
+  text-align: left;
 }
 
 .add-card::after {
@@ -155,9 +164,33 @@ select {
   left: 0;
 }
 
-.add-new-task{
+.add-new-task {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   outline: 0;
   width: 100%;
+}
+
+.task-item .task-item_select {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  outline: 0;
+  width: 100%;
+  background-color: white;
+}
+
+.task-item .task-item_select .task-item_option {}
+
+.task-submit {
+  width: 100px;
+  height: 30px;
+  background: #0079BF;
+  border-radius: 5px;
+  color: white;
+  outline: none;
+  border: none;
+}
+
+.task-submit_hidden{
+  display: none;
 }
