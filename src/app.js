@@ -21,16 +21,83 @@ const addTaskHtml = (task, btnData) => {
   if (auth) {
     let inputAddTask = document.querySelectorAll('.add-new-task');
     inputAddTask.forEach(Element =>
-      Element.addEventListener('blur', () => {
+      Element.addEventListener('blur', (e) => {
+
         taskText = Element.value;
-        let newTask = {id:task.length  + 1, text: taskText, state: btnData };
+        let newTask = { id: task.length + 1, name: taskText, state: btnData, text: '' };
         task.push(newTask)
         addNewHtmlTask(newTask);
         Element.parentElement.remove();
+        addDescription(task);
+
       })
     )
 
   }
+
+}
+// task.find((el)=>{
+//   if(el.id === 1){
+//     return true;
+//   }
+// });
+// task.find(({id})=>id === 1);
+const addDescription = (taskobj) => {
+  if (auth) {
+    let inputAddTask = document.querySelectorAll(`.task-items .task-item`);
+    let task = taskobj;
+    inputAddTask.forEach(Element => {
+      Element.addEventListener('dblclick', function test(e) {
+        task.forEach((Element1) => {
+          if (Number(Element1.id) === Number(Element.dataset.id)) {
+
+            let changeDiscription = document.querySelector(`.changeDiscription`);
+            let changeDiscriptionTextarea = document.querySelector(`.changeDiscription .changeTextare`);
+            let changeDiscriptionText = document.querySelector(`.changeDiscription .changeDiscriptionText`);
+            let nameTask = document.querySelector(`.changeDiscription .nameTask`);
+            let taskTextSubmit = document.querySelector(`.task-text-submit`);
+            let close = document.querySelector(`.close`);
+            let changeDiscriptionTextBtn = document.querySelector(`.changeDiscription .changeDiscriptionTextBtn`);
+            changeDiscriptionTextarea.value = '';
+            changeDiscription.style.display = 'flex';
+            nameTask.textContent = Element1.name;
+
+
+            if (Element1.text != '') {
+
+              changeDiscriptionText.textContent = Element1.text;
+              changeDiscriptionText.style.display = 'block';
+
+              changeDiscriptionTextarea.value = '';
+            }
+            close.addEventListener('click', () => {
+              changeDiscription.style.display = 'none';
+              changeDiscriptionText.textContent = '';
+              nameTask.textContent = '';
+
+
+            })
+            taskTextSubmit.addEventListener('click', function test2(e) {
+              Element1.text = changeDiscriptionTextarea.value;
+              e.currentTarget.removeEventListener('click', test2);
+
+            })
+
+
+          }
+
+
+        })
+
+        // e.currentTarget.removeEventListener('dblclick',test);
+
+      })
+
+
+    })
+
+  }
+
 }
 
 const transferTask = (task, datTask) => {
@@ -42,20 +109,20 @@ const transferTask = (task, datTask) => {
     let innerTask = document.querySelectorAll(`.task-items`);
     let addCard = document.querySelector(`.add-card[data-btn = ${datTask}]`)
 
-    inputAddTask.forEach(Element =>
-      Element.addEventListener('click', function handler(e) {
+    inputAddTask.forEach(Element => {
+      Element.addEventListener('click', function changeStateHandler(e) {
         clearAll(innerTask);
         taskText = selectedTask.value;
         let taskTextId = selectedTask.options[selectedTask.selectedIndex].dataset.id;
         task.forEach((Element2) => {
 
           if (Element2.id == taskTextId) {
-             Element2.state = datTask;
+            Element2.state = datTask;
           }
         }
 
         )
-        
+
         task.forEach(Element1 =>
           addAllHtmlTask(Element1)
         )
@@ -63,10 +130,11 @@ const transferTask = (task, datTask) => {
         Element.classList.add('task-submit_hidden');
         selectedTask.parentElement.remove();
         addCard.classList.remove('task-submit_hidden');
-        e.currentTarget.removeEventListener(e.type, handler);
+        e.currentTarget.removeEventListener('click', changeStateHandler);
+        addDescription(task);
       }, false)
-    )
 
+    })
   }
 }
 const clearAll = (htmlContent) => {
@@ -91,8 +159,11 @@ const addNewHtmlTask = (task) => {
   let innerTask = document.querySelector(`.task-items[data-state = "${task.state}"] `);
   let newTask = document.createElement('li');
   newTask.className = "task-item";
-  newTask.innerHTML = task.text;
+  newTask.innerHTML = task.name;
+  newTask.dataset.id = task.id;
   innerTask.append(newTask);
+
+
 }
 const addAllHtmlTask = (task) => {
   console.log(task);
@@ -100,8 +171,11 @@ const addAllHtmlTask = (task) => {
   console.log(innerTask);
   let newTask = document.createElement('li');
   newTask.className = "task-item";
-  newTask.innerHTML = task.text;
+  newTask.dataset.id = task.id;
+  newTask.innerHTML = task.name;
   innerTask.append(newTask);
+
+
 
 }
 const addHtmlSelected = (task, stateObj, prevElement) => {
@@ -113,7 +187,7 @@ const addHtmlSelected = (task, stateObj, prevElement) => {
     newTask.className = "task-item";
 
     if (Element.state == stateObj) {
-      stateTask += ` <option class="task-item_option" data-id="${Element.id}" value="${Element.text}">${Element.text}</option>`;
+      stateTask += ` <option class="task-item_option" data-id="${Element.id}" value="${Element.name}">${Element.name}</option>`;
     }
   });
   newTask.innerHTML = `<select class="task-item_select" name="" id="">${stateTask}</select>`;
@@ -132,10 +206,10 @@ loginForm.addEventListener("submit", function (e) {
 
   document.querySelector("#content").innerHTML = fieldHTMLContent;
   if (authUser(login, password)) {
+
     auth = true;
     const task = new Task(login);
     let taskAll = task.getAllTask();
-
 
     addTasks(taskAll);
     const btnCard = document.querySelectorAll('.add-card');
@@ -156,7 +230,8 @@ loginForm.addEventListener("submit", function (e) {
           newcontent.className = "task-item";
           newcontent.innerHTML = addTsk;
           Element.previousElementSibling.append(newcontent);
-          let text = addTaskHtml(taskAll, btnData);
+          addTaskHtml(taskAll, btnData);
+
         }
 
 
