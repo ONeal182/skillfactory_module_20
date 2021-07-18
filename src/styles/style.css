@@ -100,7 +100,8 @@ select {
 .btn-form {
   width: 200px;
 }
-.changeDiscription{
+
+.changeDiscription {
   position: absolute;
   width: 100%;
   background-color: white;
@@ -111,6 +112,7 @@ select {
   height: 100%;
 
 }
+
 .close {
   position: absolute;
   right: 32px;
@@ -119,28 +121,35 @@ select {
   height: 32px;
   opacity: 0.3;
   cursor: pointer;
-  }
-  .close:hover {
+}
+
+.close:hover {
   opacity: 1;
-  }
-  .close:before, .close:after {
+}
+
+.close:before,
+.close:after {
   position: absolute;
   left: 15px;
   content: ' ';
   height: 33px;
   width: 2px;
   background-color: #333;
-  }
-  .close:before {
+}
+
+.close:before {
   transform: rotate(45deg);
-  }
-  .close:after {
+}
+
+.close:after {
   transform: rotate(-45deg);
-  }
-.changeDiscription .nameTask{
+}
+
+.changeDiscription .nameTask {
   margin-bottom: 35px;
 }
-.changeDiscription .task-text-submit{
+
+.changeDiscription .task-text-submit {
   margin-top: 20px;
   margin-left: auto;
   width: 100px;
@@ -151,10 +160,12 @@ select {
   outline: none;
   border: none;
 }
-.changeDiscriptionText{
+
+.changeDiscriptionText {
   display: none;
 }
-.changeDiscriptionTextBtn{
+
+.changeDiscriptionTextBtn {
   width: 100px;
   background-color: white;
   border: none;
@@ -162,13 +173,15 @@ select {
   margin-top: 20px;
   margin-left: auto;
 }
-.changeDiscription .changeTextare{
+
+.changeDiscription .changeTextare {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   outline: 0;
   width: 100%;
   height: 200px;
 }
+
 .task-content {
   padding: 12px;
   width: calc(20% - 12px);
@@ -263,6 +276,34 @@ select {
   border: none;
 }
 
-.task-submit_hidden{
+.task-submit_hidden {
   display: none;
+}
+
+.userIcon {
+  background-image: url('../img/user-avatar.svg');
+  background-repeat: no-repeat;
+  background-color: white;
+  border-radius: 20px;
+  width: 38px;
+  height: 38px;
+  position: relative;
+  margin-right: 100px;
+  display: none;
+
+}
+
+.userIcon::after {
+  position: absolute;
+  content: '';
+  transform: rotate(225deg);
+  -webkit-transform: rotate(225deg);
+  width: 12px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+
+  right: -50%;
+  top: 45%;
 }
