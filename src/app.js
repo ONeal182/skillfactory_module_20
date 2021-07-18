@@ -29,12 +29,12 @@ const addTaskHtml = (task, btnData) => {
         addNewHtmlTask(newTask);
         Element.parentElement.remove();
         addDescription(task);
-        
+
       })
     )
-    
+
   }
-  
+
 }
 // task.find((el)=>{
 //   if(el.id === 1){
@@ -46,11 +46,11 @@ const addDescription = (taskobj) => {
   if (auth) {
     let inputAddTask = document.querySelectorAll(`.task-items .task-item`);
     let task = taskobj;
-    inputAddTask.forEach(Element =>{
+    inputAddTask.forEach(Element => {
       Element.addEventListener('dblclick', function test(e) {
         task.forEach((Element1) => {
           if (Number(Element1.id) === Number(Element.dataset.id)) {
-            
+
             let changeDiscription = document.querySelector(`.changeDiscription`);
             let changeDiscriptionTextarea = document.querySelector(`.changeDiscription .changeTextare`);
             let changeDiscriptionText = document.querySelector(`.changeDiscription .changeDiscriptionText`);
@@ -61,18 +61,13 @@ const addDescription = (taskobj) => {
             changeDiscriptionTextarea.value = '';
             changeDiscription.style.display = 'flex';
             nameTask.textContent = Element1.name;
-            // changeDiscriptionTextBtn.addEventListener('click', (e) => {
-            //   changeDiscriptionTextarea.style.display = 'block';
-            //   taskTextSubmit.style.display = 'block';
 
-
-            // })
 
             if (Element1.text != '') {
-              // taskTextSubmit.style.display = 'none';
+
               changeDiscriptionText.textContent = Element1.text;
               changeDiscriptionText.style.display = 'block';
-              // changeDiscriptionTextarea.style.display = 'none';
+
               changeDiscriptionTextarea.value = '';
             }
             close.addEventListener('click', () => {
@@ -82,24 +77,24 @@ const addDescription = (taskobj) => {
 
 
             })
-            taskTextSubmit.addEventListener('click', function test2(e)  {
+            taskTextSubmit.addEventListener('click', function test2(e) {
               Element1.text = changeDiscriptionTextarea.value;
-              e.currentTarget.removeEventListener('click',test2);
-              
+              e.currentTarget.removeEventListener('click', test2);
+
             })
-            
+
 
           }
-          
-          
-        })
-        
-        // e.currentTarget.removeEventListener('dblclick',test);
-        
-      })
-      
 
-  })
+
+        })
+
+        // e.currentTarget.removeEventListener('dblclick',test);
+
+      })
+
+
+    })
 
   }
 
@@ -115,7 +110,7 @@ const transferTask = (task, datTask) => {
     let addCard = document.querySelector(`.add-card[data-btn = ${datTask}]`)
 
     inputAddTask.forEach(Element => {
-      Element.addEventListener('click', function changeStateHandler (e) {
+      Element.addEventListener('click', function changeStateHandler(e) {
         clearAll(innerTask);
         taskText = selectedTask.value;
         let taskTextId = selectedTask.options[selectedTask.selectedIndex].dataset.id;
@@ -167,8 +162,8 @@ const addNewHtmlTask = (task) => {
   newTask.innerHTML = task.name;
   newTask.dataset.id = task.id;
   innerTask.append(newTask);
-  
-  
+
+
 }
 const addAllHtmlTask = (task) => {
   console.log(task);
@@ -179,8 +174,8 @@ const addAllHtmlTask = (task) => {
   newTask.dataset.id = task.id;
   newTask.innerHTML = task.name;
   innerTask.append(newTask);
-  
-  
+
+
 
 }
 const addHtmlSelected = (task, stateObj, prevElement) => {
@@ -236,7 +231,7 @@ loginForm.addEventListener("submit", function (e) {
           newcontent.innerHTML = addTsk;
           Element.previousElementSibling.append(newcontent);
           addTaskHtml(taskAll, btnData);
-          
+
         }
 
 
