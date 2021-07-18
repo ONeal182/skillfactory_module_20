@@ -61,18 +61,18 @@ const addDescription = (taskobj) => {
             changeDiscriptionTextarea.value = '';
             changeDiscription.style.display = 'flex';
             nameTask.textContent = Element1.name;
-            changeDiscriptionTextBtn.addEventListener('click', (e) => {
-              changeDiscriptionTextarea.style.display = 'block';
-              taskTextSubmit.style.display = 'block';
+            // changeDiscriptionTextBtn.addEventListener('click', (e) => {
+            //   changeDiscriptionTextarea.style.display = 'block';
+            //   taskTextSubmit.style.display = 'block';
 
 
-            })
+            // })
 
             if (Element1.text != '') {
-              taskTextSubmit.style.display = 'none';
+              // taskTextSubmit.style.display = 'none';
               changeDiscriptionText.textContent = Element1.text;
               changeDiscriptionText.style.display = 'block';
-              changeDiscriptionTextarea.style.display = 'none';
+              // changeDiscriptionTextarea.style.display = 'none';
               changeDiscriptionTextarea.value = '';
             }
             close.addEventListener('click', () => {
@@ -115,7 +115,7 @@ const transferTask = (task, datTask) => {
     let addCard = document.querySelector(`.add-card[data-btn = ${datTask}]`)
 
     inputAddTask.forEach(Element => {
-      const changeStateHandler = Element.addEventListener('click', () => {
+      Element.addEventListener('click', function changeStateHandler (e) {
         clearAll(innerTask);
         taskText = selectedTask.value;
         let taskTextId = selectedTask.options[selectedTask.selectedIndex].dataset.id;
@@ -135,7 +135,7 @@ const transferTask = (task, datTask) => {
         Element.classList.add('task-submit_hidden');
         selectedTask.parentElement.remove();
         addCard.classList.remove('task-submit_hidden');
-        e.currentTarget.removeEventListener(changeStateHandler);
+        e.currentTarget.removeEventListener('click', changeStateHandler);
         addDescription(task);
       }, false)
 
