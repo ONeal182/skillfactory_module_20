@@ -19,8 +19,8 @@ export class User extends BaseModel {
   }
   static save(user) {
     try {
-
       addToStorage(user, user.storageKey);
+      console.log(user.id)
       let userObj = {
         login: user.login, 
         password: user.password, 
