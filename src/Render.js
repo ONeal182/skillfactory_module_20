@@ -10,7 +10,7 @@ export class Render {
         newTask.dataset.id = task.id;
         innerTask.append(newTask);
     }
-    addHtmlSelected = (task, stateObj, prevElement) => {
+    addHtmlSelected (task, stateObj, prevElement) {
         let innerTask = document.querySelector(`.task-items[data-state = "${prevElement}"] `);
         let newTask = document.createElement('li');
         let stateTask = ``;
@@ -23,12 +23,12 @@ export class Render {
         newTask.innerHTML = `<select class="task-item_select" name="" id="">${stateTask}</select>`;
         innerTask.append(newTask);
     }
-    addTasks = (takeAll) => {
+    addTasks (takeAll){
         takeAll.forEach(Element =>
             this.addHtmlElement(Element)
         )
     }
-    clearAll = (htmlContent) => {
+    clearAll (htmlContent) {
         htmlContent.forEach(Element =>
             Element.innerHTML = ''
         );
@@ -77,10 +77,18 @@ export class Render {
         let selectedTask = document.querySelector(`.task-items[data-state=${datTask}] .task-item_select`);
         let innerTask = document.querySelectorAll(`.task-items`);
         let addCard = document.querySelector(`.add-card[data-btn = ${datTask}]`)
-
+        const clear = (innerTask) =>{
+            this.clearAll(innerTask);
+        }
+        const addHtml = (element) =>{
+            this.addHtmlElement(element)
+        }
+        const desc = (task) =>{
+            this.addDescription(task);
+        }
         inputAddTask.forEach(Element => {
             Element.addEventListener('click', function changeStateHandler(e) {
-                this.clearAll(innerTask);
+                clear(innerTask);
                 taskText = selectedTask.value;
                 let taskTextId = selectedTask.options[selectedTask.selectedIndex].dataset.id;
                 task.forEach((Element2) => {
@@ -91,13 +99,13 @@ export class Render {
 
                 )
                 task.forEach(Element1 =>
-                    this.addHtmlElement(Element1)
+                    addHtml(Element1)
                 )
                 Element.classList.add('task-submit_hidden');
                 selectedTask.parentElement.remove();
                 addCard.classList.remove('task-submit_hidden');
                 e.currentTarget.removeEventListener('click', changeStateHandler);
-                this.addDescription(task);
+                desc(task);
             }, false)
 
         })
