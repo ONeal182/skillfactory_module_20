@@ -1,6 +1,8 @@
-export class Render {
-    constructor() {
+import { Task } from "../models/Task";
 
+export class Render extends Task {
+    constructor(login) {
+        super(login);
     }
     addHtmlElement(task) {
         let innerTask = document.querySelector(`.task-items[data-state = "${task.state}"] `);
@@ -34,8 +36,15 @@ export class Render {
         );
     }
     addDescription(taskobj) {
+        console.log(1);
         let inputAddTask = document.querySelectorAll(`.task-items .task-item`);
         let task = taskobj;
+        const addTask = (taskobj) => {
+            super.addTask(taskobj);
+        }
+        const footerInfo = (task, login) => {
+            footerInfo(task, login);
+        }
         inputAddTask.forEach(Element => {
             Element.addEventListener('dblclick', function test(e) {
                 task.forEach((Element1) => {
@@ -64,20 +73,21 @@ export class Render {
                         taskTextSubmit.addEventListener('click', function test2(e) {
                             Element1.text = changeDiscriptionTextarea.value;
                             e.currentTarget.removeEventListener('click', test2);
-
+                            addTask(taskobj);
                         })
                     }
+
                 })
             })
         })
     }
-    transferTask(task, datTask) {
+    transferTask(task, datTask, login) {
         let taskText;
-        let taskState;
         let inputAddTask = document.querySelectorAll('.task-submit');
         let selectedTask = document.querySelector(`.task-items[data-state=${datTask}] .task-item_select`);
         let innerTask = document.querySelectorAll(`.task-items`);
         let addCard = document.querySelector(`.add-card[data-btn = ${datTask}]`);
+        let test = false;
         const clear = (innerTask) => {
             this.clearAll(innerTask);
         }
@@ -90,11 +100,16 @@ export class Render {
         const disabledButton = (task) => {
             this.disabledButton(task);
         }
+        const footerInfo = (task, login) => {
+            this.footerInfo(task, login);
+
+        }
+        const addTask = (task) => {
+            super.addTask(task);
+        }
         inputAddTask.forEach(Element => {
             Element.addEventListener('click', function changeStateHandler(e) {
-
-
-
+                test = true;
                 clear(innerTask);
                 taskText = selectedTask.value;
                 let taskTextId = selectedTask.options[selectedTask.selectedIndex].dataset.id;
@@ -114,27 +129,34 @@ export class Render {
                 e.currentTarget.removeEventListener('click', changeStateHandler);
                 desc(task);
                 disabledButton(task);
+                addTask(task);
+                footerInfo(task,login);
             }, false)
-
         })
     }
-    addTaskHtml(task, btnData) {
+
+    addTaskHtml(task, btnData, login) {
         let taskText;
         let inputAddTask = document.querySelectorAll('.add-new-task');
         const disabledButton = (task) => {
             this.disabledButton(task);
         }
+        const footerInfo = (task, login) =>{
+            this.footerInfo(task, login);
+        }
         inputAddTask.forEach(Element =>
             Element.addEventListener('blur', (e) => {
-
                 taskText = Element.value;
                 let newTask = { id: task.length + 1, name: taskText, state: btnData, text: '' };
                 task.push(newTask)
                 this.addHtmlElement(newTask);
                 Element.parentElement.remove();
                 this.addDescription(task);
+                console.log(task);
                 disabledButton(task);
-
+                super.addTask(task);
+                footerInfo(task, login);
+                
             })
         )
     }
@@ -163,5 +185,18 @@ export class Render {
 
         }
 
+    }
+
+    footerInfo(task, name) {
+        const footer = document.querySelector('.footer');
+        const active = document.querySelector('.footer-right_active');
+        const finished = document.querySelector('.footer-right_finished');
+        const login = document.querySelector('.footer-left_login');
+        const activeTask = task.filter(k => k.state == 'Backlog').length;
+        const finishedTask = task.filter(l => l.state == 'Finished').length;
+        footer.style.display = 'flex';
+        active.innerHTML = `Active tasks: ${activeTask}`;
+        finished.innerHTML = `Finished tasks: ${finishedTask}`;
+        login.innerHTML = `Kanban board by: ${name}`;
     }
 }

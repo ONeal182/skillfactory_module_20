@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple TODO App</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
 </head>
 
 <body class="backGround">
@@ -28,7 +31,7 @@
                     <button id="app-regist-btn" class="btn btn-outline-info btn-form" type="submit">Sign Up</button>
                 </form>
                 <div class="userIcon">
-                   
+
                 </div>
                 <ul class="selectMenu">
                     <li>Profile</li>
@@ -41,7 +44,15 @@
         <p id="content">Please Sign In to see your tasks!</p>
     </div>
 
-
+    <footer class="footer">
+        <div class="footer-right">
+            <span class="footer-right_active">Active tasks: </span>
+            <span class="footer-right_finished">Finished tasks: </span>
+        </div>
+        <div class="footer-left">
+            <span class="footer-left_login">Kanban board by: </span>
+        </div>
+    </footer>
 </body>
 
 </html>

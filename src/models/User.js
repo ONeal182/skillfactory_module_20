@@ -2,10 +2,11 @@ import { BaseModel } from "./BaseModel";
 import { getFromStorage, addToStorage } from "../utils";
 
 export class User extends BaseModel {
-  constructor(login, password) {
+  constructor(login, password,roll = 'user') {
     super();
     this.login = login;
     this.password = password;
+    this.roll = roll;
     this.storageKey = "users";
   }
   get hasAccess() {
@@ -20,28 +21,27 @@ export class User extends BaseModel {
   static save(user) {
     try {
       addToStorage(user, user.storageKey);
-      console.log(user.id)
       let userObj = {
-        login: user.login, 
-        password: user.password, 
-        id: user.id, 
+        login: user.login,
+        password: user.password,
+        id: user.id,
+        steate: user.roll,
         auth: true,
-        task:[ 
-          
-          
-        ] };
+        task: []
+      };
       let userJson = JSON.stringify(userObj);
       let usserArray = []
-      if (sessionStorage.getItem('user') === null) {
+
+      if (localStorage.getItem('user') === null) {
         usserArray.push(JSON.parse(userJson));
 
-        sessionStorage.setItem('user', JSON.stringify(usserArray));
+        localStorage.setItem('user', JSON.stringify(usserArray));
 
-      }else{
+      } else {
         let newUser = JSON.parse(userJson);
-        let objUser = JSON.parse(sessionStorage.getItem('user'));
+        let objUser = JSON.parse(localStorage.getItem('user'));
         objUser.push(newUser);
-        sessionStorage.setItem('user', JSON.stringify(objUser));
+        localStorage.setItem('user', JSON.stringify(objUser));
       }
       return true;
     } catch (e) {

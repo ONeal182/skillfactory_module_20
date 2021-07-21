@@ -11,14 +11,14 @@ export const addToStorage = function (obj, key) {
 };
 
 export const generateTestUser = function (User) {
-  localStorage.clear();
+
   const testUser = new User("test", "qwerty123");
   User.save(testUser);
 };
 
-export const regUser = function (User, login, password) {
-  localStorage.clear();
-  const newUser = new User(login, password);
+export const regUser = function (User, login, password, roll) {
+
+  const newUser = new User(login, password, roll);
   User.save(newUser);
   document.querySelector("#content").innerHTML = regComp;
   

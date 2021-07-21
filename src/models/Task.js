@@ -1,15 +1,20 @@
 export class Task {
   constructor(name = 'test') {
     this.name = name;
-    this.task = JSON.parse(sessionStorage.getItem('user')).find(k => k.login = this.name).task;
+
   }
 
-    getAllTask(task){
-    let allTask = this.task;
-    return allTask;
-    }
-    addTask(task){
-        this.task.push(task);
-        return true;
-    }
+  getAllTask() {
+    let allTask = JSON.parse(localStorage.getItem('user')).find(k => k.login == this.name);
+
+    return allTask.task;
+  }
+  addTask(task) {
+    let allTask = JSON.parse(localStorage.getItem('user')).find(k => k.login = this.name);
+    let indexFind = JSON.parse(localStorage.getItem('user')).findIndex((item) => item.login == this.name);
+    let objUser = JSON.parse(localStorage.user);
+    objUser[indexFind].task = task;
+    localStorage.setItem('user',JSON.stringify(objUser));
+    return true;
+  }
 }
