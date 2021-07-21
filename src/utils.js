@@ -16,9 +16,9 @@ export const generateTestUser = function (User) {
   User.save(testUser);
 };
 
-export const regUser = function (User, login, password) {
+export const regUser = function (User, login, password, roll) {
 
-  const newUser = new User(login, password);
+  const newUser = new User(login, password, roll);
   User.save(newUser);
   document.querySelector("#content").innerHTML = regComp;
   

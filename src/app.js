@@ -9,7 +9,6 @@ import { State } from "./state";
 import { authUser } from "./services/auth";
 import { v4 as uuid } from "uuid";
 import { Render } from "./services/render.js";
-
 export const appState = new State();
 const loginForm = document.querySelector("#app-login-form");
 const regBtn = document.querySelector('#app-regist-btn');
@@ -17,8 +16,15 @@ const addTsk = "<input class='add-new-task' type='text'>";
 const userIcon = document.querySelector('.userIcon');
 
 let auth = false;
+const regAdmin = () =>{
+  if(localStorage.getItem('user') === null || JSON.parse( localStorage.getItem('user')).find(k=>k.state === 'admin')){
+    regUser(User,'admin', '123','admin');
+  }
+}
 
+regAdmin();
 
+console.log(localStorage.getItem('user'));
 regBtn.addEventListener("click", function (e) {
   e.preventDefault();
   const formData = new FormData(loginForm);

@@ -2,10 +2,11 @@ import { BaseModel } from "./BaseModel";
 import { getFromStorage, addToStorage } from "../utils";
 
 export class User extends BaseModel {
-  constructor(login, password) {
+  constructor(login, password,roll = 'user') {
     super();
     this.login = login;
     this.password = password;
+    this.roll = roll;
     this.storageKey = "users";
   }
   get hasAccess() {
@@ -24,12 +25,13 @@ export class User extends BaseModel {
         login: user.login,
         password: user.password,
         id: user.id,
+        steate: user.roll,
         auth: true,
         task: []
       };
       let userJson = JSON.stringify(userObj);
       let usserArray = []
-      console.log(localStorage.getItem('user'));
+
       if (localStorage.getItem('user') === null) {
         usserArray.push(JSON.parse(userJson));
 
