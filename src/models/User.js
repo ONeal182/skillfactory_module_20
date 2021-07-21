@@ -21,22 +21,21 @@ export class User extends BaseModel {
     try {
       addToStorage(user, user.storageKey);
       let userObj = {
-        login: user.login, 
-        password: user.password, 
-        id: user.id, 
+        login: user.login,
+        password: user.password,
+        id: user.id,
         auth: true,
-        task:[ 
-          
-          
-        ] };
+        task: []
+      };
       let userJson = JSON.stringify(userObj);
       let usserArray = []
+      console.log(localStorage.getItem('user'));
       if (localStorage.getItem('user') === null) {
         usserArray.push(JSON.parse(userJson));
 
         localStorage.setItem('user', JSON.stringify(usserArray));
 
-      }else{
+      } else {
         let newUser = JSON.parse(userJson);
         let objUser = JSON.parse(localStorage.getItem('user'));
         objUser.push(newUser);

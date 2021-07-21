@@ -15,7 +15,6 @@ export class Task {
     let objUser = JSON.parse(localStorage.user);
     objUser[indexFind].task = task;
     localStorage.setItem('user',JSON.stringify(objUser));
-    console.log(JSON.parse(localStorage.getItem('user')));
     return true;
   }
 }
