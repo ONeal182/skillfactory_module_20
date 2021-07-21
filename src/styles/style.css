@@ -377,7 +377,7 @@ select {
 
 .footer {
   padding: 17px 21px;
-  display: flex;
+  display: none;
   width: 100%;
   justify-content: space-between;
   background-color: #0067A3;

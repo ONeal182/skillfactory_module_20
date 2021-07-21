@@ -183,12 +183,13 @@ export class Render extends Task {
     }
 
     footerInfo(task, name) {
+        const footer = document.querySelector('.footer');
         const active = document.querySelector('.footer-right_active');
         const finished = document.querySelector('.footer-right_finished');
         const login = document.querySelector('.footer-left_login');
         const activeTask = task.filter(k => k.state != 'Finished').length;
         const finishedTask = task.filter(l => l.state == 'Finished').length;
-
+        footer.style.display = 'flex';
         active.innerHTML = `Active tasks: ${activeTask}`;
         finished.innerHTML = `Finished tasks: ${finishedTask}`;
         login.innerHTML = `Kanban board by: ${name}`;

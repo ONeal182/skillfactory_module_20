@@ -40,7 +40,7 @@ loginForm.addEventListener("submit", function (e) {
 
   document.querySelector("#content").innerHTML = fieldHTMLContent;
   if (authUser(login, password)) {
-
+    const footer = document.querySelector('.footer');
     loginForm.style.display = 'none';
     userIcon.style.display = 'block';
     userIcon.addEventListener('click', () => {
@@ -53,6 +53,7 @@ loginForm.addEventListener("submit", function (e) {
       document.querySelector('.selectMenu').classList.remove('selectMenuShow');
       userIcon.style.display = 'none';
       loginForm.style.display = 'flex';
+      footer.style.display = 'none';
     })
 
     auth = true;
