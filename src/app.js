@@ -44,35 +44,34 @@ loginForm.addEventListener("submit", function (e) {
 
     loginForm.style.display = 'none';
     userIcon.style.display = 'block';
-    userIcon.addEventListener('click', () =>{
+    userIcon.addEventListener('click', () => {
       document.querySelector('.userIcon').classList.toggle('userIcon_down');
       document.querySelector('.selectMenu').classList.toggle('selectMenuShow');
     })
-    document.querySelector('.logOut').addEventListener('click', () =>{
+    document.querySelector('.logOut').addEventListener('click', () => {
       document.querySelector("#content").innerHTML = noAccessTemplate;
       document.querySelector('.userIcon').classList.remove('userIcon_down');
       document.querySelector('.selectMenu').classList.remove('selectMenuShow');
       userIcon.style.display = 'none';
       loginForm.style.display = 'flex';
     })
-  
+
     auth = true;
     const taskClass = new Task(login);
     let taskAll = taskClass.getAllTask();
     let render = new Render(login);
-    
-    const addTaskHtml = (task, btnData,login) => {
+
+    const addTaskHtml = (task, btnData, login) => {
       if (auth) {
         render.addTaskHtml(task, btnData);
         render.footerInfo(task, login);
         taskClass.addTask(task);
-        
+
       }
     }
     const transferTask = (task, datTask, login) => {
       if (auth) {
-        render.transferTask(task, datTask,login);
-        render.footerInfo(task, login);
+        render.transferTask(task, datTask, login);
         taskClass.addTask(task);
       }
     }
@@ -85,6 +84,7 @@ loginForm.addEventListener("submit", function (e) {
       render.addTasks(takeAll);
       taskClass.addTask(takeAll);
     }
+    render.footerInfo(taskAll, login);
     addTasks(taskAll);
     render.addDescription(taskAll);
     const btnCard = document.querySelectorAll('.add-card');
@@ -98,31 +98,17 @@ loginForm.addEventListener("submit", function (e) {
           Element.previousElementSibling.classList.remove('task-submit_hidden');
           Element.classList.add('task-submit_hidden');
           transferTask(taskAll, btnData, login);
-          render.footerInfo(taskAll, login);
-          // if(taskAll.find(k=>k.state == Element.dataset.btn) ){
-          //   btnCard[key].disabled = false;
-          // }else{
-          //   btnCard[key].disabled = true;
-          // }
-          render.footerInfo(taskAll, login);
           taskClass.addTask(taskAll);
         } else {
-
           let newcontent = document.createElement('li', 'input');
           newcontent.className = "task-item";
           newcontent.innerHTML = addTsk;
           Element.previousElementSibling.append(newcontent);
           addTaskHtml(taskAll, btnData, login);
-          render.footerInfo(taskAll, login);
           taskClass.addTask(taskAll);
-
         }
-
-
-
       })
     })
-
   }
 });
 

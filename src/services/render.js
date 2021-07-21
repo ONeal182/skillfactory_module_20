@@ -42,6 +42,9 @@ export class Render extends Task {
         const addTask = (taskobj) => {
             super.addTask(taskobj);
         }
+        const footerInfo = (task, login) => {
+            footerInfo(task, login);
+        }
         inputAddTask.forEach(Element => {
             Element.addEventListener('dblclick', function test(e) {
                 task.forEach((Element1) => {
@@ -71,10 +74,9 @@ export class Render extends Task {
                             Element1.text = changeDiscriptionTextarea.value;
                             e.currentTarget.removeEventListener('click', test2);
                             addTask(taskobj);
-
                         })
                     }
-                    
+
                 })
             })
         })
@@ -127,9 +129,8 @@ export class Render extends Task {
                 e.currentTarget.removeEventListener('click', changeStateHandler);
                 desc(task);
                 disabledButton(task);
-                footerInfo(task, login);
                 addTask(task);
-
+                footerInfo(task,login);
             }, false)
         })
     }
