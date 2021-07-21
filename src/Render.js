@@ -10,7 +10,7 @@ export class Render {
         newTask.dataset.id = task.id;
         innerTask.append(newTask);
     }
-    addHtmlSelected = (task, stateObj, prevElement) => {
+    addHtmlSelected(task, stateObj, prevElement) {
         let innerTask = document.querySelector(`.task-items[data-state = "${prevElement}"] `);
         let newTask = document.createElement('li');
         let stateTask = ``;
@@ -23,12 +23,12 @@ export class Render {
         newTask.innerHTML = `<select class="task-item_select" name="" id="">${stateTask}</select>`;
         innerTask.append(newTask);
     }
-    addTasks = (takeAll) => {
+    addTasks(takeAll) {
         takeAll.forEach(Element =>
             this.addHtmlElement(Element)
         )
     }
-    clearAll = (htmlContent) => {
+    clearAll(htmlContent) {
         htmlContent.forEach(Element =>
             Element.innerHTML = ''
         );
@@ -73,14 +73,29 @@ export class Render {
     }
     transferTask(task, datTask) {
         let taskText;
+        let taskState;
         let inputAddTask = document.querySelectorAll('.task-submit');
         let selectedTask = document.querySelector(`.task-items[data-state=${datTask}] .task-item_select`);
         let innerTask = document.querySelectorAll(`.task-items`);
-        let addCard = document.querySelector(`.add-card[data-btn = ${datTask}]`)
-
+        let addCard = document.querySelector(`.add-card[data-btn = ${datTask}]`);
+        const clear = (innerTask) => {
+            this.clearAll(innerTask);
+        }
+        const addHtml = (element) => {
+            this.addHtmlElement(element)
+        }
+        const desc = (task) => {
+            this.addDescription(task);
+        }
+        const disabledButton = (task) => {
+            this.disabledButton(task);
+        }
         inputAddTask.forEach(Element => {
             Element.addEventListener('click', function changeStateHandler(e) {
-                this.clearAll(innerTask);
+
+
+
+                clear(innerTask);
                 taskText = selectedTask.value;
                 let taskTextId = selectedTask.options[selectedTask.selectedIndex].dataset.id;
                 task.forEach((Element2) => {
@@ -91,13 +106,14 @@ export class Render {
 
                 )
                 task.forEach(Element1 =>
-                    this.addHtmlElement(Element1)
+                    addHtml(Element1)
                 )
                 Element.classList.add('task-submit_hidden');
                 selectedTask.parentElement.remove();
                 addCard.classList.remove('task-submit_hidden');
                 e.currentTarget.removeEventListener('click', changeStateHandler);
-                this.addDescription(task);
+                desc(task);
+                disabledButton(task);
             }, false)
 
         })
@@ -105,6 +121,9 @@ export class Render {
     addTaskHtml(task, btnData) {
         let taskText;
         let inputAddTask = document.querySelectorAll('.add-new-task');
+        const disabledButton = (task) => {
+            this.disabledButton(task);
+        }
         inputAddTask.forEach(Element =>
             Element.addEventListener('blur', (e) => {
 
@@ -114,8 +133,35 @@ export class Render {
                 this.addHtmlElement(newTask);
                 Element.parentElement.remove();
                 this.addDescription(task);
+                disabledButton(task);
 
             })
         )
+    }
+
+    disabledButton(task) {
+        if (task.find(k => k.state == 'Backlog') !== undefined) {
+
+            document.querySelector(`.add-card[data-btn = Ready]`).removeAttribute("disabled");
+        } else {
+
+            document.querySelector(`.add-card[data-btn = Ready]`).setAttribute("disabled", "disabled");
+        }
+        if (task.find(k => k.state == 'Ready') !== undefined) {
+
+            document.querySelector(`.add-card[data-btn = InProgress]`).removeAttribute("disabled");
+        } else {
+            document.querySelector(`.add-card[data-btn = InProgress]`).setAttribute("disabled", "disabled");
+
+        }
+
+        if (task.find(k => k.state == 'InProgress') !== undefined) {
+
+            document.querySelector(`.add-card[data-btn = Finished]`).removeAttribute("disabled");
+        } else {
+            document.querySelector(`.add-card[data-btn = Finished]`).setAttribute("disabled", "disabled");
+
+        }
+
     }
 }

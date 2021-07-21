@@ -15,6 +15,8 @@ sessionStorage.clear();
 const loginForm = document.querySelector("#app-login-form");
 const regBtn = document.querySelector('#app-regist-btn');
 const addTsk = "<input class='add-new-task' type='text'>";
+const userIcon = document.querySelector('.userIcon');
+
 let auth = false;
 
 const addTaskHtml = (task, btnData) => {
@@ -55,6 +57,20 @@ loginForm.addEventListener("submit", function (e) {
   document.querySelector("#content").innerHTML = fieldHTMLContent;
   if (authUser(login, password)) {
 
+    loginForm.style.display = 'none';
+    userIcon.style.display = 'block';
+    userIcon.addEventListener('click', () =>{
+      document.querySelector('.userIcon').classList.toggle('userIcon_down');
+      document.querySelector('.selectMenu').classList.toggle('selectMenuShow');
+    })
+    document.querySelector('.logOut').addEventListener('click', () =>{
+      document.querySelector("#content").innerHTML = noAccessTemplate;
+      document.querySelector('.userIcon').classList.remove('userIcon_down');
+      document.querySelector('.selectMenu').classList.remove('selectMenuShow');
+      userIcon.style.display = 'none';
+      loginForm.style.display = 'flex';
+    })
+  
     auth = true;
     const task = new Task(login);
     let taskAll = task.getAllTask();
@@ -71,6 +87,11 @@ loginForm.addEventListener("submit", function (e) {
           Element.previousElementSibling.classList.remove('task-submit_hidden');
           Element.classList.add('task-submit_hidden');
           transferTask(taskAll, btnData);
+          // if(taskAll.find(k=>k.state == Element.dataset.btn) ){
+          //   btnCard[key].disabled = false;
+          // }else{
+          //   btnCard[key].disabled = true;
+          // }
 
         } else {
 
