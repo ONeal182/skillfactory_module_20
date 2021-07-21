@@ -69,7 +69,7 @@ loginForm.addEventListener("submit", function (e) {
 
     const addTaskHtml = (task, btnData, login) => {
       if (auth) {
-        render.addTaskHtml(task, btnData);
+        render.addTaskHtml(task, btnData, login);
         render.footerInfo(task, login);
         taskClass.addTask(task);
 
@@ -112,6 +112,7 @@ loginForm.addEventListener("submit", function (e) {
           Element.previousElementSibling.append(newcontent);
           addTaskHtml(taskAll, btnData, login);
           taskClass.addTask(taskAll);
+          render.footerInfo(taskAll);
         }
       })
     })

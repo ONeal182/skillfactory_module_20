@@ -135,13 +135,15 @@ export class Render extends Task {
         })
     }
 
-    addTaskHtml(task, btnData) {
+    addTaskHtml(task, btnData, login) {
         let taskText;
         let inputAddTask = document.querySelectorAll('.add-new-task');
         const disabledButton = (task) => {
             this.disabledButton(task);
         }
-
+        const footerInfo = (task, login) =>{
+            this.footerInfo(task, login);
+        }
         inputAddTask.forEach(Element =>
             Element.addEventListener('blur', (e) => {
                 taskText = Element.value;
@@ -152,6 +154,8 @@ export class Render extends Task {
                 this.addDescription(task);
                 disabledButton(task);
                 super.addTask(task);
+                footerInfo(task, login);
+                
             })
         )
     }
@@ -187,7 +191,7 @@ export class Render extends Task {
         const active = document.querySelector('.footer-right_active');
         const finished = document.querySelector('.footer-right_finished');
         const login = document.querySelector('.footer-left_login');
-        const activeTask = task.filter(k => k.state != 'Finished').length;
+        const activeTask = task.filter(k => k.state == 'Backlog').length;
         const finishedTask = task.filter(l => l.state == 'Finished').length;
         footer.style.display = 'flex';
         active.innerHTML = `Active tasks: ${activeTask}`;
