@@ -8,11 +8,10 @@ import { regUser } from "./utils";
 import { State } from "./state";
 import { authUser } from "./services/auth";
 import { v4 as uuid } from "uuid";
-import { Render } from "./Render.js";
+import { Render } from "./services/render.js";
 let render = new Render();
 export const appState = new State();
-// sessionStorage.clear();
-console.log(sessionStorage.getItem('user') );
+sessionStorage.clear();
 const loginForm = document.querySelector("#app-login-form");
 const regBtn = document.querySelector('#app-regist-btn');
 const addTsk = "<input class='add-new-task' type='text'>";
@@ -20,14 +19,16 @@ const userIcon = document.querySelector('.userIcon');
 
 let auth = false;
 
-const addTaskHtml = (task, btnData) => {
+const addTaskHtml = (task, btnData,login) => {
   if (auth) {
     render.addTaskHtml(task, btnData);
+    render.footerInfo(task, login);
   }
 }
-const transferTask = (task, datTask) => {
+const transferTask = (task, datTask, login) => {
   if (auth) {
-    render.transferTask(task, datTask);
+    render.transferTask(task, datTask,login);
+    render.footerInfo(task, login);
   }
 }
 
@@ -87,20 +88,22 @@ loginForm.addEventListener("submit", function (e) {
           addHtmlSelected(taskAll, prevElement, btnData);
           Element.previousElementSibling.classList.remove('task-submit_hidden');
           Element.classList.add('task-submit_hidden');
-          transferTask(taskAll, btnData);
+          transferTask(taskAll, btnData, login);
+          render.footerInfo(taskAll, login);
           // if(taskAll.find(k=>k.state == Element.dataset.btn) ){
           //   btnCard[key].disabled = false;
           // }else{
           //   btnCard[key].disabled = true;
           // }
-
+          render.footerInfo(taskAll, login);
         } else {
 
           let newcontent = document.createElement('li', 'input');
           newcontent.className = "task-item";
           newcontent.innerHTML = addTsk;
           Element.previousElementSibling.append(newcontent);
-          addTaskHtml(taskAll, btnData);
+          addTaskHtml(taskAll, btnData, login);
+          render.footerInfo(taskAll, login);
 
         }
 

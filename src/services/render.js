@@ -71,9 +71,8 @@ export class Render {
             })
         })
     }
-    transferTask(task, datTask) {
+    transferTask(task, datTask, login) {
         let taskText;
-        let taskState;
         let inputAddTask = document.querySelectorAll('.task-submit');
         let selectedTask = document.querySelector(`.task-items[data-state=${datTask}] .task-item_select`);
         let innerTask = document.querySelectorAll(`.task-items`);
@@ -114,9 +113,14 @@ export class Render {
                 e.currentTarget.removeEventListener('click', changeStateHandler);
                 desc(task);
                 disabledButton(task);
+                this.footerInfo(task,login);
             }, false)
 
+           
+
         })
+
+
     }
     addTaskHtml(task, btnData) {
         let taskText;
@@ -163,5 +167,16 @@ export class Render {
 
         }
 
+    }
+
+    footerInfo(task, name) {
+        const active = document.querySelector('.footer-right_active');
+        const finished = document.querySelector('.footer-right_finished');
+        const login = document.querySelector('.footer-left_login');
+        const activeTask = task.filter(k => k.state != 'Finished').length;
+        const finishedTask = task.filter(l => l.state == 'Finished').length;
+        active.innerHTML = `Active tasks: ${activeTask}`;
+        finished.innerHTML = `Finished tasks: ${finishedTask}`;
+        login.innerHTML = `Kanban board by: ${name}`;
     }
 }

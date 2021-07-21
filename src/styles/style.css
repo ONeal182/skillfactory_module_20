@@ -80,14 +80,22 @@ select {
     scroll-behavior: auto !important;
   }
 }
-#app-login-form{
+
+#app-login-form {
   display: flex;
 }
-#navbarSupportedContent{
+
+#navbarSupportedContent {
   position: relative;
 }
+
 .navElement {
   background-color: #0067A3;
+}
+
+.backGround {
+  display: flex;
+  flex-direction: column;
 }
 
 .backGround {
@@ -300,7 +308,7 @@ select {
 
 }
 
-.selectMenu{
+.selectMenu {
   position: absolute;
   width: 134px;
   height: 60px;
@@ -310,6 +318,7 @@ select {
   padding-top: 5px !important;
   display: none;
 }
+
 .userIcon::after {
   position: absolute;
   content: '';
@@ -340,15 +349,17 @@ select {
   top: 45%;
 }
 
-.selectMenuShow{
+.selectMenuShow {
   display: block;
 }
-.selectMenuShow{
+
+.selectMenuShow {
   /* position: relative; */
   top: 135%;
   right: 5%;
 }
-.selectMenuShow::after{
+
+.selectMenuShow::after {
   content: '';
   background-color: white;
   width: 11px;
@@ -360,6 +371,28 @@ select {
 
 }
 
-.selectMenu li{
+.selectMenu li {
   cursor: pointer;
 }
+
+.footer {
+  padding: 17px 21px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #0067A3;
+  margin-top: auto;
+}
+
+.footer span {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+
+
+  color: #FFFFFF;
+}
+
