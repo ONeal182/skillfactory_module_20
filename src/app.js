@@ -9,9 +9,9 @@ import { State } from "./state";
 import { authUser } from "./services/auth";
 import { v4 as uuid } from "uuid";
 import { Render } from "./services/render.js";
-let render = new Render();
+
 export const appState = new State();
-sessionStorage.clear();
+// sessionStorage.clear();
 const loginForm = document.querySelector("#app-login-form");
 const regBtn = document.querySelector('#app-regist-btn');
 const addTsk = "<input class='add-new-task' type='text'>";
@@ -19,22 +19,7 @@ const userIcon = document.querySelector('.userIcon');
 
 let auth = false;
 
-const addTaskHtml = (task, btnData,login) => {
-  if (auth) {
-    render.addTaskHtml(task, btnData);
-    render.footerInfo(task, login);
-  }
-}
-const transferTask = (task, datTask, login) => {
-  if (auth) {
-    render.transferTask(task, datTask,login);
-    render.footerInfo(task, login);
-  }
-}
 
-const addTasks = (takeAll) => {
-  render.addTasks(takeAll);
-}
 regBtn.addEventListener("click", function (e) {
   e.preventDefault();
   const formData = new FormData(loginForm);
@@ -43,9 +28,7 @@ regBtn.addEventListener("click", function (e) {
   regUser(User, login, password);
 
 })
-const addHtmlSelected = (task, stateObj, prevElement) => {
-  render.addHtmlSelected(task, stateObj, prevElement);
-}
+
 loginForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const formData = new FormData(loginForm);
@@ -74,10 +57,36 @@ loginForm.addEventListener("submit", function (e) {
     })
   
     auth = true;
-    const task = new Task(login);
-    let taskAll = task.getAllTask();
-
+    const taskClass = new Task(login);
+    let taskAll = taskClass.getAllTask();
+    let render = new Render(login);
+    
+    const addTaskHtml = (task, btnData,login) => {
+      if (auth) {
+        render.addTaskHtml(task, btnData);
+        render.footerInfo(task, login);
+        taskClass.addTask(task);
+        
+      }
+    }
+    const transferTask = (task, datTask, login) => {
+      if (auth) {
+        render.transferTask(task, datTask,login);
+        render.footerInfo(task, login);
+        taskClass.addTask(task);
+      }
+    }
+    const addHtmlSelected = (task, stateObj, prevElement) => {
+      render.addHtmlSelected(task, stateObj, prevElement);
+      console.log(task);
+      taskClass.addTask(task);
+    }
+    const addTasks = (takeAll) => {
+      render.addTasks(takeAll);
+      taskClass.addTask(takeAll);
+    }
     addTasks(taskAll);
+    render.addDescription(taskAll);
     const btnCard = document.querySelectorAll('.add-card');
     btnCard.forEach((Element, key) => {
       Element.addEventListener('click', () => {
@@ -96,6 +105,7 @@ loginForm.addEventListener("submit", function (e) {
           //   btnCard[key].disabled = true;
           // }
           render.footerInfo(taskAll, login);
+          taskClass.addTask(taskAll);
         } else {
 
           let newcontent = document.createElement('li', 'input');
@@ -104,6 +114,7 @@ loginForm.addEventListener("submit", function (e) {
           Element.previousElementSibling.append(newcontent);
           addTaskHtml(taskAll, btnData, login);
           render.footerInfo(taskAll, login);
+          taskClass.addTask(taskAll);
 
         }
 
