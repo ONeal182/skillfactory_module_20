@@ -87,6 +87,11 @@ loginForm.addEventListener("submit", function (e) {
           Element.previousElementSibling.classList.remove('task-submit_hidden');
           Element.classList.add('task-submit_hidden');
           transferTask(taskAll, btnData);
+          // if(taskAll.find(k=>k.state == Element.dataset.btn) ){
+          //   btnCard[key].disabled = false;
+          // }else{
+          //   btnCard[key].disabled = true;
+          // }
 
         } else {
 
