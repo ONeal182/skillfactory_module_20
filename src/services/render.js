@@ -89,6 +89,9 @@ export class Render {
         const disabledButton = (task) => {
             this.disabledButton(task);
         }
+        const footerInfo = (task, login) =>{
+            this.footerInfo(task,login);
+        }
         inputAddTask.forEach(Element => {
             Element.addEventListener('click', function changeStateHandler(e) {
 
@@ -113,7 +116,7 @@ export class Render {
                 e.currentTarget.removeEventListener('click', changeStateHandler);
                 desc(task);
                 disabledButton(task);
-                this.footerInfo(task,login);
+                footerInfo(task,login);
             }, false)
 
            
@@ -175,6 +178,7 @@ export class Render {
         const login = document.querySelector('.footer-left_login');
         const activeTask = task.filter(k => k.state != 'Finished').length;
         const finishedTask = task.filter(l => l.state == 'Finished').length;
+  
         active.innerHTML = `Active tasks: ${activeTask}`;
         finished.innerHTML = `Finished tasks: ${finishedTask}`;
         login.innerHTML = `Kanban board by: ${name}`;
