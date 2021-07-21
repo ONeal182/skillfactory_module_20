@@ -1,3 +1,4 @@
+
 /* Указываем box sizing */
 *,
 *::before,
@@ -396,3 +397,24 @@ select {
   color: #FFFFFF;
 }
 
+@media(max-width: 768px){
+  .task-content{
+    width: calc(50% - 17px);
+    margin-bottom: 10px;
+    height: 300px;
+  }
+  .conteiner-task{
+    height: 100%;
+  }
+  .footer{
+    flex-wrap: wrap;
+  }
+}
+
+@media(max-width: 411px){
+  .task-content{
+    width: 100%;
+    margin-bottom: 10px;
+    height: 300px;
+  }
+}

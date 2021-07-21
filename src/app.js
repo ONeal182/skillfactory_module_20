@@ -91,6 +91,7 @@ loginForm.addEventListener("submit", function (e) {
       taskClass.addTask(takeAll);
     }
     render.footerInfo(taskAll, login);
+    render.disabledButton(taskAll);
     addTasks(taskAll);
     render.addDescription(taskAll);
     const btnCard = document.querySelectorAll('.add-card');

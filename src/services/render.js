@@ -152,6 +152,7 @@ export class Render extends Task {
                 this.addHtmlElement(newTask);
                 Element.parentElement.remove();
                 this.addDescription(task);
+                console.log(task);
                 disabledButton(task);
                 super.addTask(task);
                 footerInfo(task, login);
