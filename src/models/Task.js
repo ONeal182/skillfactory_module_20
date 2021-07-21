@@ -5,17 +5,17 @@ export class Task {
   }
 
   getAllTask() {
-    let allTask = JSON.parse(sessionStorage.getItem('user')).find(k => k.login == this.name);
+    let allTask = JSON.parse(localStorage.getItem('user')).find(k => k.login == this.name);
 
     return allTask.task;
   }
   addTask(task) {
-    let allTask = JSON.parse(sessionStorage.getItem('user')).find(k => k.login = this.name);
-    let indexFind = JSON.parse(sessionStorage.getItem('user')).findIndex((item) => item.login == this.name);
-    let objUser = JSON.parse(sessionStorage.user);
+    let allTask = JSON.parse(localStorage.getItem('user')).find(k => k.login = this.name);
+    let indexFind = JSON.parse(localStorage.getItem('user')).findIndex((item) => item.login == this.name);
+    let objUser = JSON.parse(localStorage.user);
     objUser[indexFind].task = task;
-    sessionStorage.setItem('user',JSON.stringify(objUser));
-    console.log(JSON.parse(sessionStorage.getItem('user')));
+    localStorage.setItem('user',JSON.stringify(objUser));
+    console.log(JSON.parse(localStorage.getItem('user')));
     return true;
   }
 }

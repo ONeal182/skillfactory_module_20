@@ -31,16 +31,16 @@ export class User extends BaseModel {
         ] };
       let userJson = JSON.stringify(userObj);
       let usserArray = []
-      if (sessionStorage.getItem('user') === null) {
+      if (localStorage.getItem('user') === null) {
         usserArray.push(JSON.parse(userJson));
 
-        sessionStorage.setItem('user', JSON.stringify(usserArray));
+        localStorage.setItem('user', JSON.stringify(usserArray));
 
       }else{
         let newUser = JSON.parse(userJson);
-        let objUser = JSON.parse(sessionStorage.getItem('user'));
+        let objUser = JSON.parse(localStorage.getItem('user'));
         objUser.push(newUser);
-        sessionStorage.setItem('user', JSON.stringify(objUser));
+        localStorage.setItem('user', JSON.stringify(objUser));
       }
       return true;
     } catch (e) {

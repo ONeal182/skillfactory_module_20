@@ -70,10 +70,11 @@ export class Render extends Task {
                         taskTextSubmit.addEventListener('click', function test2(e) {
                             Element1.text = changeDiscriptionTextarea.value;
                             e.currentTarget.removeEventListener('click', test2);
+                            addTask(taskobj);
 
                         })
                     }
-                    addTask(taskobj);
+                    
                 })
             })
         })

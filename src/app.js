@@ -11,7 +11,7 @@ import { v4 as uuid } from "uuid";
 import { Render } from "./services/render.js";
 
 export const appState = new State();
-// sessionStorage.clear();
+// localStorage.clear();
 const loginForm = document.querySelector("#app-login-form");
 const regBtn = document.querySelector('#app-regist-btn');
 const addTsk = "<input class='add-new-task' type='text'>";
